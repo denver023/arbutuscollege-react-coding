@@ -1,25 +1,25 @@
+import $ from 'jquery';
+import _ from 'lodash';
 import '../css/main.css';
 
 let count = 0;
 
 function updateCounter() {
   count++;
-  document.getElementById('count').innerHTML = `${count} clicks on the button`;
+  $('#count').text(`${count} clicks on the button`);
 }
 
-// Create elements
-const button = document.createElement('button');
-button.innerHTML = 'Click here to get started';
-button.onclick = updateCounter;
+$(document).ready(function() {
+  // Add logo element
+  $('body').append('<div id="logo"></div>');
+  
+  // Add other elements to the body
+  $('body').append('<p>Holberton Dashboard</p>');
+  $('body').append('<p>Dashboard data for the students</p>');
+  $('body').append('<button>Click here to get started</button>');
+  $('body').append('<p id="count"></p>');
+  $('body').append('<p>Copyright - Holberton School</p>');
 
-const counter = document.createElement('span');
-counter.id = 'count';
-counter.innerHTML = '0 clicks on the button';
-
-const logo = document.createElement('div');
-logo.id = 'logo';
-
-// Add elements to page
-document.body.appendChild(logo);
-document.body.appendChild(button);
-document.body.appendChild(counter);
+  // Bind debounced updateCounter to button click
+  $('button').on('click', _.debounce(updateCounter, 500));
+});
