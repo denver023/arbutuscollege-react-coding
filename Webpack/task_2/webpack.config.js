@@ -1,43 +1,46 @@
 const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   mode: 'production',
-  entry: {
-    main: path.resolve(__dirname, './js/dashboard_main.js'),
-  },
+  entry: './js/dashboard_main.js',
   output: {
     filename: 'bundle.js',
-    path: path.resolve(__dirname, 'public'),
-  },
-  performance: {
-    hints: false,
+    path: path.resolve(__dirname, 'public')
   },
   module: {
     rules: [
       {
-        test: /\.css$/i,
-        use: ['style-loader', 'css-loader'],
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader']
       },
       {
-        test: /\.(gif|png|jpe?g|svg)$/i,
+        test: /\.(png|jpe?g|gif)$/i,
         use: [
           'file-loader',
           {
             loader: 'image-webpack-loader',
             options: {
-              bypassOnDebug: true,
-              disable: true,
-            },
-          },
-        ],
-      },
-    ],
-  },
-  plugins: [
-    new HtmlWebpackPlugin({
-      filename: 'index.html',
-      template: './public/index.html',
-    }),
-  ],
+              mozjpeg: {
+                progressive: true,
+                quality: 65
+              },
+              optipng: {
+                enabled: false,
+              },
+              pngquant: {
+                quality: [0.65, 0.90],
+                speed: 4
+              },
+              gifsicle: {
+                interlaced: false,
+              },
+              webp: {
+                quality: 75
+              }
+            }
+          }
+        ]
+      }
+    ]
+  }
 };
