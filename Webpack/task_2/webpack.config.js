@@ -5,12 +5,7 @@ module.exports = {
   entry: './js/dashboard_main.js',
   output: {
     path: path.resolve(__dirname, 'public'),
-    filename: 'bundle.js',
-    publicPath: '/public'
-  },
-  performance: {
-    maxAssetSize: 1000000,
-    maxEntrypointSize: 1000000
+    filename: 'bundle.js'
   },
   module: {
     rules: [
@@ -24,8 +19,8 @@ module.exports = {
           {
             loader: 'file-loader',
             options: {
-              name: '[name].[ext]',
-              outputPath: 'images'
+              outputPath: 'images',
+              name: '[name].[ext]'
             }
           },
           {
@@ -53,5 +48,9 @@ module.exports = {
         ]
       }
     ]
+  },
+  performance: {
+    maxEntrypointSize: 500000,
+    maxAssetSize: 500000
   }
 };
