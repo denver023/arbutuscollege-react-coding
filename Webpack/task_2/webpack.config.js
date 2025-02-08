@@ -4,45 +4,24 @@ module.exports = {
   mode: 'production',
   entry: './js/dashboard_main.js',
   output: {
-    path: path.resolve(__dirname, 'public'),
-    filename: 'bundle.js'
+    filename: 'bundle.js',
+    path: path.resolve(__dirname, 'public')
   },
   module: {
     rules: [
       {
-        test: /\.css$/,
+        test: /\.css$/i,
         use: ['style-loader', 'css-loader']
       },
       {
-        test: /\.(png|jpe?g|gif)$/i,
+        test: /\.(gif|png|jpe?g|svg)$/i,
         use: [
-          {
-            loader: 'file-loader',
-            options: {
-              outputPath: 'images',
-              name: '[name].[ext]'
-            }
-          },
+          'file-loader',
           {
             loader: 'image-webpack-loader',
             options: {
-              mozjpeg: {
-                progressive: true,
-                quality: 65
-              },
-              optipng: {
-                enabled: false,
-              },
-              pngquant: {
-                quality: [0.65, 0.90],
-                speed: 4
-              },
-              gifsicle: {
-                interlaced: false,
-              },
-              webp: {
-                quality: 75
-              }
+              bypassOnDebug: true,
+              disable: true
             }
           }
         ]
@@ -50,7 +29,6 @@ module.exports = {
     ]
   },
   performance: {
-    maxEntrypointSize: 500000,
-    maxAssetSize: 500000
+    hints: false
   }
 };
