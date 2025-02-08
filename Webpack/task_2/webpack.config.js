@@ -4,8 +4,13 @@ module.exports = {
   mode: 'production',
   entry: './js/dashboard_main.js',
   output: {
+    path: path.resolve(__dirname, 'public'),
     filename: 'bundle.js',
-    path: path.resolve(__dirname, 'public')
+    publicPath: '/public'
+  },
+  performance: {
+    maxAssetSize: 1000000,
+    maxEntrypointSize: 1000000
   },
   module: {
     rules: [
@@ -16,7 +21,13 @@ module.exports = {
       {
         test: /\.(png|jpe?g|gif)$/i,
         use: [
-          'file-loader',
+          {
+            loader: 'file-loader',
+            options: {
+              name: '[name].[ext]',
+              outputPath: 'images'
+            }
+          },
           {
             loader: 'image-webpack-loader',
             options: {
